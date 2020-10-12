@@ -19,15 +19,6 @@
   </safe-area-view>
 </template>
 
-
-
-<script>
-export default {
-  components: {  },
-};
-</script>
-
-
 <style>
 .container {
   flex: 1;
