@@ -52,14 +52,17 @@
 </style>
 
 <script>
+import { sendCommand } from "./firebase/commands";
 
 export default {
   methods: {
-    makeShortCoffee: function() {
-      console.log("Short");
+    makeShortCoffee: async function() {
+      console.log("short")
+      var command = await sendCommand("short");
     },
-    makeLongCoffee: function() {
-      console.log("Long");
+    makeLongCoffee: async function() {
+      console.log("long")
+      var command = await sendCommand("long");
     },
   }
 }
