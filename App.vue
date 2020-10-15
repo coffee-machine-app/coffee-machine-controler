@@ -5,13 +5,15 @@
     </view>
     <view class="body">
       <text class="primary-text">What kind of coffee do you want ?</text>
-      <touchable-opacity class="button-container"
+      <touchable-opacity :class="buttoncss[0]"
         :on-press="makeShortCoffee"
+        :disabled="disableButton[0]"
         accessibility-label="Create a short coffee">
             <text class="button-text">Short coffee</text>
     </touchable-opacity>
-    <touchable-opacity class="button-container"
+    <touchable-opacity :class="buttoncss[0]"
         :on-press="makeLongCoffee"
+        :disabled="disableButton[0]"
         accessibility-label="Create a long coffee">
             <text class="button-text">Long coffee</text>
     </touchable-opacity>
@@ -41,6 +43,15 @@
   margin : 5px;
   width:90%;
 }
+
+.button-container disabled {
+  background-color: rgba(255, 0, 0, 0.555);
+  border-radius: 10;
+  padding: 15px;
+  margin : 5px;
+  width:90%;
+}
+
 .button-text {
   font-size: 15px;
   text-align: center;
@@ -52,9 +63,21 @@
 </style>
 
 <script>
-import { sendCommand } from "./firebase/commands";
+import { checkStatus, sendCommand } from "./firebase/commands";
 
 export default {
+  data() {
+    return {
+      buttoncss: ["button-container"],
+      disableButton : [false] 
+    };
+  },
+  mounted: async function(){
+    var res = [];
+    res = await checkStatus(this.disableButton, this.buttoncss);
+    //this.disableButton = res[0];
+    this.buttoncss = res[1];
+  },
   methods: {
     makeShortCoffee: async function() {
       console.log("short")
