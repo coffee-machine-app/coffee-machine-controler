@@ -13,13 +13,16 @@ async function checkStatus(disableButton, buttoncss) {
             }
         });
 
+        //Initialise the variables
         disableButton.length = 0;
         buttoncss.length = 0;
 
         if(status != "wait" && status.length != 0){
+            //The coffee machine is working
             disableButton.push(true);
             buttoncss.push("button-container disabled");
         } else{
+            //The coffee machine is waiting
             disableButton.push(false);
             buttoncss.push("button-container");
         }
@@ -32,6 +35,7 @@ async function sendCommand(status) {
     try {
         //Create a random id
         id = Date.now().toString();
+        //Send the status to the firebase
         await firebase.firestore().collection('status').doc().set({
             key: id,
             status: status,

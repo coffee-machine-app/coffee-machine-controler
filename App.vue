@@ -32,16 +32,20 @@ export default {
     };
   },
   mounted: async function(){
+    //Variable who will get the returning of the function
     var res = [];
+    //Launch the function who listen the changes in the database
     res = await checkStatus(this.disableButton, this.buttoncss);
     this.disableButton = res[0];
     this.buttoncss = res[1];
   },
   methods: {
+    //Make a short coffee
     makeShortCoffee: async function() {
       console.log("short")
       var command = await sendCommand("short");
     },
+    //Make a long coffee
     makeLongCoffee: async function() {
       console.log("long")
       var command = await sendCommand("long");
