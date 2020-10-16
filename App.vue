@@ -10,16 +10,45 @@
         :disabled="disableButton[0]"
         accessibility-label="Create a short coffee">
             <text class="button-text">Short coffee</text>
-    </touchable-opacity>
-    <touchable-opacity :class="buttoncss[0]"
-        :on-press="makeLongCoffee"
-        :disabled="disableButton[0]"
-        accessibility-label="Create a long coffee">
-            <text class="button-text">Long coffee</text>
-    </touchable-opacity>
+      </touchable-opacity>
+      <touchable-opacity :class="buttoncss[0]"
+          :on-press="makeLongCoffee"
+          :disabled="disableButton[0]"
+          accessibility-label="Create a long coffee">
+              <text class="button-text">Long coffee</text>
+      </touchable-opacity>
     </view>
   </safe-area-view>
 </template>
+
+<script>
+import { checkStatus, sendCommand } from "./firebase/commands";
+
+export default {
+  data() {
+    return {
+      buttoncss: ["button-container"],
+      disableButton : [false] 
+    };
+  },
+  mounted: async function(){
+    var res = [];
+    res = await checkStatus(this.disableButton, this.buttoncss);
+    this.disableButton = res[0];
+    this.buttoncss = res[1];
+  },
+  methods: {
+    makeShortCoffee: async function() {
+      console.log("short")
+      var command = await sendCommand("short");
+    },
+    makeLongCoffee: async function() {
+      console.log("long")
+      var command = await sendCommand("long");
+    },
+  }
+}
+</script>
 
 <style>
 .container {
@@ -61,32 +90,3 @@
   text-align: center;
 }
 </style>
-
-<script>
-import { checkStatus, sendCommand } from "./firebase/commands";
-
-export default {
-  data() {
-    return {
-      buttoncss: ["button-container"],
-      disableButton : [false] 
-    };
-  },
-  mounted: async function(){
-    var res = [];
-    res = await checkStatus(this.disableButton, this.buttoncss);
-    this.disableButton = res[0];
-    this.buttoncss = res[1];
-  },
-  methods: {
-    makeShortCoffee: async function() {
-      console.log("short")
-      var command = await sendCommand("short");
-    },
-    makeLongCoffee: async function() {
-      console.log("long")
-      var command = await sendCommand("long");
-    },
-  }
-}
-</script>

@@ -2,7 +2,7 @@ import { firebase } from './config.js'
 
 async function checkStatus(disableButton, buttoncss) {
     //Search all the messages not from the user
-    firebase.firestore().collection('status').orderBy("timestamp", "desc").limit(1).onSnapshot(async function (result) {;
+    firebase.firestore().collection('status').orderBy("timestamp", "desc").limit(1).onSnapshot(async function (result) {
         var status = [];
         //Check if there is changes
         result.docChanges().forEach(function (doc) {
@@ -16,14 +16,12 @@ async function checkStatus(disableButton, buttoncss) {
         disableButton.length = 0;
         buttoncss.length = 0;
 
-        if(status != "wait" && status.length !=0 ){
+        if(status != "wait" && status.length != 0){
             disableButton.push(true);
             buttoncss.push("button-container disabled");
-            
         } else{
             disableButton.push(false);
             buttoncss.push("button-container");
-        
         }
     });
     return [disableButton,buttoncss];
