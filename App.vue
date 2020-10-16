@@ -75,7 +75,7 @@ export default {
   mounted: async function(){
     var res = [];
     res = await checkStatus(this.disableButton, this.buttoncss);
-    //this.disableButton = res[0];
+    this.disableButton = res[0];
     this.buttoncss = res[1];
   },
   methods: {
