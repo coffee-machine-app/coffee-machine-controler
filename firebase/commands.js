@@ -32,6 +32,8 @@ async function checkStatus(disableButton, buttoncss) {
 //Create a command in firestore
 async function sendCommand(status) {
     try {
+        //Create a random id
+        id = Date.now().toString();
         await firebase.firestore().collection('status').doc().set({
             key: id,
             status: status,
