@@ -17,7 +17,7 @@ async function checkStatus(disableButton, buttoncss) {
         disableButton.length = 0;
         buttoncss.length = 0;
 
-        if(status != "wait" && status.length != 0){
+        if(status != "waiting" && status.length != 0){
             //The coffee machine is working
             disableButton.push(true);
             buttoncss.push("button-container disabled");
